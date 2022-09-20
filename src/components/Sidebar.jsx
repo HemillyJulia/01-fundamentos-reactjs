@@ -9,7 +9,7 @@ src='https://images.unsplash.com/photo-1584949091598-c31daaaa4aa9?ixlib=rb-1.2.1
 />
 <div className={styles.profile}>
 
-    <Avatar src='https://pps.whatsapp.net/v/t61.24694-24/294776597_603215161219504_369903346780479187_n.jpg?ccb=11-4&oh=01_AVwrkjza7G_s9t-8h7DHa2OAknRT1lHhcxV9MpguYb25jw&oe=63302CDD'/>
+    <Avatar src='https://pps.whatsapp.net/v/t61.24694-24/173865416_835387597825920_4918501910225045977_n.jpg?ccb=11-4&oh=01_AVzDR7r2nwISihUyLTJ4qit5AVG-CNbcEorVlB8Q6-Bh_Q&oe=63378E6B'/>
     <strong>Hemilly Julia</strong>
     <span>Developer Student</span>
 </div>
