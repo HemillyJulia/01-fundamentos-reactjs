@@ -8,8 +8,10 @@ import { useState } from "react";
 
 export function Post({author, publishedAt, content}) {
 
+//Armazenar um array de comentários.
   const [comments, setComments] = useState(['Post muito bacana, parabéns.'])
 
+//Armazenar um comentário novo ( O valor do Input)
   const [newCommentText, setNewCommentText] = useState('')
   
  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale:ptBR})
@@ -28,9 +30,18 @@ export function Post({author, publishedAt, content}) {
 
  }
 
- function handleNewCommentChange (){
+ function handleNewCommentChange (event){
   setNewCommentText (event.target.value)
   
+ }
+
+ //A função abaixo irá receber qual comentário que eu quero remover e vai fazer algo com esse comentário.
+
+ function deleteComment(commentToDelete){
+  const listaDeComentariosSemOQueEuDeletei = comments.filter(comment => {
+    return comment !== commentToDelete  })
+
+setComments(listaDeComentariosSemOQueEuDeletei)
  }
 
   return (
@@ -49,11 +60,11 @@ export function Post({author, publishedAt, content}) {
         </time>
       </header>
       <div className={styles.content}>
-       {content.map(line => {
+       {content.map((line,index) => {
         if (line.type === 'paragraph'){
-          return <p> {line.content}</p>
+          return <p key={index}> {line.content}</p>
         } else if (line.type ==='link') {
-          return <p><a href="#"> {line.content} </a></p>
+          return <p key = {index}><a href="#"> {line.content} </a></p>
         }
        })}
       </div>
@@ -69,13 +80,19 @@ export function Post({author, publishedAt, content}) {
         </footer>
       </form>
       <div>
-        {comments.map (inserindoComentarioNovo => {
-          return <Comment content={inserindoComentarioNovo}/>
+        {comments.map ((inserindoComentarioNovo,index) => {
+
+          // A função deleteComment eu enviei como propriedade pro meu componente Comment
+          return (
+          <Comment key={index} 
+          content={inserindoComentarioNovo} 
+          onDeleteComment={deleteComment}/>)
         })}
       </div>
     </article>
   );
 }
+
 
 
 
