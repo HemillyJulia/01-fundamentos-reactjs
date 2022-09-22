@@ -12,7 +12,8 @@ export function Post({author, publishedAt, content}) {
   const [comments, setComments] = useState(['Post muito bacana, parabéns.'])
 
 //Armazenar um comentário novo ( O valor do Input)
-  const [newCommentText, setNewCommentText] = useState('')
+  const [newCommentText, setNewCommentText] = useState('') 
+ 
   
  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {locale:ptBR})
 
@@ -31,8 +32,13 @@ export function Post({author, publishedAt, content}) {
  }
 
  function handleNewCommentChange (event){
+  event.target.setCustomValidity ('')
   setNewCommentText (event.target.value)
   
+ }
+
+ function handleNewCommentInvalid(){
+  event.target.setCustomValidity('Esse campo é obrigatório')
  }
 
  //A função abaixo irá receber qual comentário que eu quero remover e vai fazer algo com esse comentário.
@@ -43,6 +49,8 @@ export function Post({author, publishedAt, content}) {
 
 setComments(listaDeComentariosSemOQueEuDeletei)
  }
+
+const isNewCommentEmpty = newCommentText.length === 0
 
   return (
     <article className={styles.post}>
@@ -70,13 +78,18 @@ setComments(listaDeComentariosSemOQueEuDeletei)
       </div>
 
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
+
         <strong>Deixe seu feedback</strong>
+        
         <textarea name ="commentTextArea"
          placeholder="Deixe um comentário" 
          value={newCommentText}
-         onChange={handleNewCommentChange}/>
+         onChange={handleNewCommentChange}
+         onInvalid={handleNewCommentInvalid}
+         required/>
+        
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
         </footer>
       </form>
       <div>
@@ -92,6 +105,7 @@ setComments(listaDeComentariosSemOQueEuDeletei)
     </article>
   );
 }
+
 
 
 
